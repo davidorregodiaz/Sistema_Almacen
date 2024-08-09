@@ -1,8 +1,6 @@
 package controladora;
+import modelo.*;
 import util1.ListaArreglo;
-import modelo.Movement;
-import modelo.Product;
-import modelo.TechnologyStorage;
 import excepciones.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,13 +16,11 @@ import javax.swing.JOptionPane;
 import vista.Contenido;
 
 public class Almacen implements Serializable{
-    //Contenido contenido = new Contenido();
     ListaArreglo<Product> productos;
     ListaArreglo<TechnologyStorage> almacenamientos;
     ListaArreglo<Movement> movimientos;
-    final double totalSpace =12000;
+    AdminStrategy adminStrategy;
     double actualSpace=0;
-    double space = 0;
     double espacioOcupado = 0;
     int pos;
 
@@ -35,27 +31,17 @@ public class Almacen implements Serializable{
     public void setPos(int pos) {
         this.pos = pos;
     }
-    
-    
-    public double getEspacioOcupado() {
-        return espacioOcupado;
-    }
-
-    public void setEspacioOcupado(double volumen,int pos) throws ExceptionElementoFueraDeRango {
+      public void setEspacioOcupado(double volumen,int pos) throws ExceptionElementoFueraDeRango {
         
         espacioOcupado += almacenamientos.obtener(pos).volumen();
         
         
     }
      
-    public double getSpace() {
-        return space;
-    }
-    
     public Almacen() {
-       productos = new ListaArreglo<Product>();
-       almacenamientos = new ListaArreglo<TechnologyStorage>();
-       movimientos = new ListaArreglo<Movement>();
+        new ListaArreglo<Product>();
+        new ListaArreglo<TechnologyStorage>();
+        new ListaArreglo<Movement>();
     }
 
     public ListaArreglo<Product> getProductos() {
@@ -119,16 +105,9 @@ public class Almacen implements Serializable{
             throw new ExceptionElementoFueraDeRango();
         }                  
     }
-    public double getAvailableSpace(){
-        return totalSpace - actualSpace;
-    }
-    
     public double espacioOcupado(int y) throws ExceptionElementoFueraDeRango{
-        
-            
-             espacioOcupado += almacenamientos.obtener(y).volumen();
-        
-            return espacioOcupado; 
+          espacioOcupado += almacenamientos.obtener(y).volumen();
+          return espacioOcupado;
     }
     public double eliminarEspacioOcupado(double volumen,int y) throws ExceptionElementoFueraDeRango{
         
@@ -145,6 +124,7 @@ public class Almacen implements Serializable{
      
         try {
             output.writeInt(pos);
+           
             
             output.writeInt(productos.cantElementos());
             

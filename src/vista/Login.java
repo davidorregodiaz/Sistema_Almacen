@@ -2,6 +2,9 @@
 package vista;
 
 import excepciones.ExceptionArregloLleno;
+import modelo.AdminStrategy;
+import modelo.LoginService;
+
 import java.awt.Color;
 import java.awt.Image;
 import java.io.IOException;
@@ -12,12 +15,17 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
-    ImageIcon imagen = new ImageIcon("botellas.jpg");
+    ImageIcon imagen;
+    LoginService loginService;
+    AdminStrategy adminStrategy;
     private boolean clickBotonAceptar;
     private int xMouse, yMouse;
     
     public Login() {
         initComponents();
+        new LoginService();
+        new AdminStrategy("admin","admin");
+        new ImageIcon("botellas.jpg");
         this.clickBotonAceptar=true;
         setBounds(100, 200, 800, 500);
         setLocationRelativeTo(null);
@@ -356,26 +364,17 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_showMouseClicked
 
     private void jLabelEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelEntrarMouseClicked
-        if(validarCampos()==true){
-            //La contrase;a n puede tener espacios implementar .trim
+        boolean isAdminLogin = loginService.loginAsAdmin(userText.getText(),String.valueOf(jPasswordField1.getPassword()));
+
+        if(validarCampos() && isAdminLogin){
             Contenido contenido = new Contenido();
             contenido.ejecutar();
             this.dispose();
-        }else{
-            //ImageIcon icon = new ImageIcon("icons8-invisible-24");
-            
+        }else if (!validarCampos()){
             JOptionPane.showMessageDialog(null, "Llene los campos","Error",JOptionPane.ERROR_MESSAGE);
+        }else if (!isAdminLogin){
+            JOptionPane.showMessageDialog(null,"Error en el usuario o contrasenia");
         }
-        /*Contenido obj = new Contenido();
-        try {
-            obj.importarInformacion("\\Users\\PC\\Desktop");
-        } catch (IOException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ExceptionArregloLleno ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
     }//GEN-LAST:event_jLabelEntrarMouseClicked
 
     private void jLabelEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabelEntrarKeyPressed
