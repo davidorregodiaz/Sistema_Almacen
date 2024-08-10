@@ -7,7 +7,6 @@ public class TechnologyStorage extends Storage implements Serializable {
 
     private double cant;
     private String type;
-    private double totalSpace=0;
     private String producto;
     private int posProducto;
     private String fecha;
@@ -62,16 +61,10 @@ public class TechnologyStorage extends Storage implements Serializable {
         return volumen;
     }
 
-    @Override
-    public double getTotalSpace() {//aniado esto pa probar el git ta trampa
-        return totalSpace;
-    }
 
     @Override
     public String toString() {
         return type;
     }
-    
-     
 
 }

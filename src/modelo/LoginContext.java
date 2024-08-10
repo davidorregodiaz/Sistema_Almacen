@@ -1,10 +1,10 @@
 package modelo;
 
 public class LoginContext{
-     private VerifyUser strategy;
+     private Strategy strategy;
      
      
-     public void setVerifyUser(VerifyUser strategy){
+     public void setVerifyUser(Strategy strategy){
             this.strategy = strategy;
      }
     public Boolean executeLogin(String username, String password){

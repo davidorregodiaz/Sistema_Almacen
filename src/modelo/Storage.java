@@ -7,7 +7,6 @@ public class Storage implements Serializable{
     protected double length;
     protected double width;
     protected double height;
-    protected double totalSpace;
 
     public Storage(double length, double width, double height) {
         this.length = length;
@@ -31,9 +30,6 @@ public class Storage implements Serializable{
     }
     public void setHeight(double height) {
         this.height = height;
-    }
-    public double getTotalSpace() {
-       return getHeight()*getLength()*getWidth();
     }
 
 }

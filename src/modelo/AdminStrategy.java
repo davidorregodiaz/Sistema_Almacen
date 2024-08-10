@@ -2,7 +2,7 @@ package modelo;
 
 import java.io.Serializable;
 
-public class AdminStrategy implements VerifyUser, Serializable {
+public class AdminStrategy implements Strategy, Serializable {
     private String username;
     private String password;
 
